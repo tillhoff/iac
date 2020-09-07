@@ -3,6 +3,10 @@
 version: '3'
 
 tasks:
-  deploy:
+  deploy:deployment:
     cmds:
       - kubectl apply -f ./deployment_caddy.yaml
+
+  deploy:service:
+    cmds:
+      - kubectl apply -f ./service_caddy.yaml
