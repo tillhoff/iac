@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: caddy
+  name: caddy_deployment
   labels:
     app: caddy
 spec:
