@@ -3,7 +3,5 @@ services:
   reverse-proxy:
     image: caddy:2.1.1
     network_mode: host
-    deploy:
-      replicas: 1
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
