@@ -5,3 +5,6 @@ services:
     network_mode: host
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - 80:80
+      - 443:443
