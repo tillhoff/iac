@@ -6,6 +6,4 @@ services:
     deploy:
       replicas: 1
     volumes:
-      - type: bind
-        source: ./Caddyfile
-        target: /etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
