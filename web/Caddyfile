@@ -1,6 +1,6 @@
-localhost:8080 {
+:8080 {
 	respond "Hello, world!"
 }
 
-localhost:80
+:80
 reverse_proxy 172.17.0.3:80
