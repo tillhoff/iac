@@ -20,3 +20,20 @@ spec:
         ports:
         - containerPort: 80
         - containerPort: 443
+        volumes:
+        - name: caddy-configuration
+          configMap:
+            name: caddy-configuration
+            items:
+            - key: Caddyfile
+              path: Caddyfile
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddy-configuration
+data:
+  Caddyfile: |
+    :80 {
+    	respond "You are now on the caddy within kubernetes! Good job!"
+    }
