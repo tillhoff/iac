@@ -10,3 +10,7 @@ tasks:
   deploy:service:
     cmds:
       - kubectl apply -f ./service_caddy.yaml
+  
+  deploy:reverseproxy:
+    cmds:
+      - docker-compose up
