@@ -20,13 +20,18 @@ spec:
         ports:
         - containerPort: 80
         - containerPort: 443
-        volumes:
+        volumeMounts:
         - name: caddy-configuration
-          configMap:
-            name: caddy-configuration
-            items:
-            - key: Caddyfile
-              path: Caddyfile
+          mountPath: /etc/caddy/Caddyfile
+          readOnly: true
+#          subPath: Caddyfile
+      volumes:
+      - name: caddy-configuration
+        configMap:
+          name: caddy-configuration
+          items:
+          - key: Caddyfile
+            path: Caddyfile
 ---
 apiVersion: v1
 kind: ConfigMap
