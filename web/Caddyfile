@@ -1,5 +1,5 @@
-:8080 {
-	respond "Hello, world!"
+:9999 {
+	respond "I'm healthy!"
 }
 
 :80
