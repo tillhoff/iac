@@ -47,6 +47,18 @@
       from_port: 8080
       to_ip: 127.0.0.1
       to_port: 80
+      state: absent
+    - ip_version: ipv4
+      protocol: tcp
+      from_port: 8443
+      to_ip: 127.0.0.1
+      to_port: 443
+      state: absent
+    - ip_version: ipv4
+      protocol: tcp
+      from_port: 8080
+      to_ip: 127.0.0.1
+      to_port: 80
       state: present
     - ip_version: ipv4
       protocol: tcp
