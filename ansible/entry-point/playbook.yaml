@@ -24,48 +24,33 @@
       out_interface: "{{ ansible_default_ipv4.interface }}"
       jump: MASQUERADE
       comment: Enable masquerading, setup with ansible
+  
+  - name: Run minikube ip command
+    shell: minikube ip
+    register: minikube_get_ip
+    
+  - name: Set minikube ip variable
+    set_fact:
+      minikube_ip: "{{ minikube_get_ip.stdout }}"
 
   - name: Setup prerouting port forwarding
     become: true
-    iptables:
-      table: nat
-      chain: PREROUTING
-      in_interface: eth0
-      ip_version: "{{ item.ip_version }}"
-      protocol: "{{ item.protocol }}"
-      destination: "{{ item.to_ip }}"
-      destination_port: "{{ item.from_port }}"
-      jump: REDIRECT
-      to_ports: "{{ item.to_port }}"
-      state: "{{ item.state }}"
-      comment: Port forwarding, setup with ansible
+    shell: iptables -t nat -A PREROUTING -p {{ item.protocol }} --dport {{ item.from_port }} -j DNAT --to-destination {{ item.to_ip }}:{{ item.to_port }} -m comment --comment "{{ item.comment }}"
     notify:
     - Save iptable rules
     loop:
     - ip_version: ipv4
       protocol: tcp
       from_port: 8080
-      to_ip: 127.0.0.1
+      to_ip: "{{ minikube_ip }}"
       to_port: 80
-      state: absent
+      comment: Port forwarding, setup with ansible
     - ip_version: ipv4
       protocol: tcp
       from_port: 8443
-      to_ip: 127.0.0.1
+      to_ip: "{{ minikube_ip }}"
       to_port: 443
-      state: absent
-    - ip_version: ipv4
-      protocol: tcp
-      from_port: 8080
-      to_ip: 127.0.0.1
-      to_port: 80
-      state: present
-    - ip_version: ipv4
-      protocol: tcp
-      from_port: 8443
-      to_ip: 127.0.0.1
-      to_port: 443
-      state: present
+      comment: Port forwarding, setup with ansible
 
   handlers:
   - name: Save iptable rules
