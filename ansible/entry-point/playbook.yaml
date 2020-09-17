@@ -8,15 +8,15 @@
       register: r_minikube_ip
     - set_fact:
         minikube_ip: "{{ r_minikube_ip.stdout }}"
-    - name: Forward port {{ item.port }} to minikube
+    - name: Forward port {{ item }} to minikube
       shell:
-        project_name: forward-port-{{ item.port }}
+        project_name: forward-port-{{ item }}
         definition:
           port-forwarder:
             image: tillhoff/socat
             extra_hosts:
               - "minikube:{{ minikube_ip }}"
-            ports: "{{ item.port }}:{{ item.port }}"
-            command: socat TCP-LISTEN:{{ item.port }},fork TCP:{{ minikube_ip }}:{{ item.port }}
+            ports: "{{ item }}:{{ item }}"
+            command: socat TCP-LISTEN:{{ item }},fork TCP:{{ minikube_ip }}:{{ item }}
       loop:
         - 80
