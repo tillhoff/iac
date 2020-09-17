@@ -3,20 +3,37 @@
   run_once: true
 
   tasks:
+    - name: Install python3 and python-pip3
+      become: true
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - python3
+        - python3-pip
+    - name: Install required python packages
+      pip:
+        executable: pip3
+        name: "{{ item }}"
+      loop:
+      - docker
+      - docker-compose
     - name: Get minikube ip
       command: "minikube ip"
       register: r_minikube_ip
     - set_fact:
         minikube_ip: "{{ r_minikube_ip.stdout }}"
-    - name: Forward port {{ item }} to minikube
-      shell:
-        project_name: forward-port-{{ item }}
+    - name: "Forward port to minikube"
+      docker_compose:
+        project_name: "forward-port-{{ item.from }}"
         definition:
-          port-forwarder:
+          socat:
             image: tillhoff/socat
             extra_hosts:
               - "minikube:{{ minikube_ip }}"
-            ports: "{{ item }}:{{ item }}"
-            command: socat TCP-LISTEN:{{ item }},fork TCP:{{ minikube_ip }}:{{ item }}
+            ports:
+              - "{{ item.from }}:{{ item.to }}"
+            command: "socat TCP-LISTEN:{{ item.from }},fork TCP:{{ minikube_ip }}:{{ item.to }}"
       loop:
-        - 80
+        - from: 80
+          to: 80
