@@ -9,7 +9,6 @@
     - set_fact:
         minikube_ip: "{{ r_minikube_ip.stdout }}"
     - name: Forward port {{ item.port }} to minikube
-      hosts: localhost
       shell:
         project_name: forward-port-{{ item.port }}
         definition:
