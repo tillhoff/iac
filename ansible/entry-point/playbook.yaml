@@ -3,56 +3,21 @@
   run_once: true
 
   tasks:
-  - name: Install automatic iptables restore
-    become: true
-    apt:
-      name: iptables-persistent
-      state: present
-  - name: Enable port forwarding in sysctl
-    become: true
-    sysctl:
-      name: net.ipv4.ip_forward
-      value: "1"
-      sysctl_set: yes # verify
-      reload: true
-      state: present
-  - name: Setup postrouting masquerade
-    become: true
-    iptables:
-      table: nat
-      chain: POSTROUTING
-      out_interface: "{{ ansible_default_ipv4.interface }}"
-      jump: MASQUERADE
-      comment: Enable masquerading, setup with ansible
-  
-  - name: Run minikube ip command
-    shell: minikube ip
-    register: minikube_get_ip
-    
-  - name: Set minikube ip variable
-    set_fact:
-      minikube_ip: "{{ minikube_get_ip.stdout }}"
-
-  - name: Setup prerouting port forwarding
-    become: true
-    shell: iptables -t nat -A PREROUTING -p {{ item.protocol }} --dport {{ item.from_port }} -j DNAT --to-destination {{ item.to_ip }}:{{ item.to_port }} -m comment --comment "{{ item.comment }}"
-    notify:
-    - Save iptable rules
-    loop:
-    - ip_version: ipv4
-      protocol: tcp
-      from_port: 8080
-      to_ip: "{{ minikube_ip }}"
-      to_port: 80
-      comment: Port forwarding, setup with ansible
-    - ip_version: ipv4
-      protocol: tcp
-      from_port: 8443
-      to_ip: "{{ minikube_ip }}"
-      to_port: 443
-      comment: Port forwarding, setup with ansible
-
-  handlers:
-  - name: Save iptable rules
-    become: true
-    shell: iptables-save > /etc/iptables/rules.v4 && ip6tables-save > /etc/iptables/rules.v6
+    - name: Get minikube ip
+      command: "minikube ip"
+      register: r_minikube_ip
+    - set_fact:
+        minikube_ip: "{{ r_minikube_ip.stdout }}"
+    - name: Forward port {{ item.port }} to minikube
+      hosts: localhost
+      shell:
+        project_name: forward-port-{{ item.port }}
+        definition:
+          port-forwarder:
+            image: tillhoff/socat
+            extra_hosts:
+              - "minikube:{{ minikube_ip }}"
+            ports: "{{ item.port }}:{{ item.port }}"
+            command: socat TCP-LISTEN:{{ item.port }},fork TCP:{{ minikube_ip }}:{{ item.port }}
+      loop:
+        - 80
