@@ -6,15 +6,10 @@ metadata:
     app: caddy
 data:
   Caddyfile: |
-    alpha.enforge.de:80 {
-    	respond "You are now on the caddy within kubernetes! Good job!"
+    alpha.enforge.de {
+    	respond "You are now securely on the caddy within kubernetes! Good job!"
     }
-    #:443 {
-    #  respond "Hi!"
-    #}
-    :9999 {
-      reverse_proxy caddy-service.web.svc.cluster.local:80
+    :9999/healthcheck {
+      respond "I'm healthy!"
+      #reverse_proxy caddy-service.web.svc.cluster.local:80
     }
-    #alpha.enforge.de:9999 {
-    #  respond "I'm healthy!"
-    #}
