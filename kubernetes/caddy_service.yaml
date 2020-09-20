@@ -7,17 +7,17 @@ spec:
     app: caddy
   type: NodePort
   ports:
-    - name: HTTP
+    - name: http
       protocol: TCP
       port: 80 # within cluster
       targetPort: 80 # container port
       nodePort: 80 # external
-    - name: HTTPS
+    - name: https
       protocol: TCP
       port: 443
       targetPort: 443
       nodePort: 443
-    - name: HEALTHCHECK
+    - name: healthcheck
       protocol: TCP
       port: 9999
       targetPort: 9999
