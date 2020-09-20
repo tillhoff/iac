@@ -21,19 +21,44 @@
     - name: Get minikube ip
       command: "minikube ip"
       register: r_minikube_ip
+      changed_when: false
     - set_fact:
         minikube_ip: "{{ r_minikube_ip.stdout }}"
+    - name: "Stop all port-forwarding container"
+      shell:  docker container stop $(docker container ls -q --filter name=forward-port-*)
     - name: "Forward port to minikube"
       docker_compose:
-        project_name: "forward-port-{{ item.from }}"
+        state: present
+        project_name: "forward-port-{{ port.from }}-to-minikube"
         definition:
           socat:
             image: tillhoff/socat
             extra_hosts:
               - "minikube:{{ minikube_ip }}"
-            ports:
-              - "{{ item.from }}:{{ item.to }}"
-            command: "socat TCP-LISTEN:{{ item.from }},fork TCP:{{ minikube_ip }}:{{ item.to }}"
-      loop:
-        - from: 80
+            container_name: "forward-port-{{ port.from }}-to-minikube"
+            ports: 
+              - "{{ port.from }}:{{ port.to }}"
+            command: |
+              socat TCP-LISTEN:{{ port.from }},fork TCP:{{ minikube_ip }}:{{ port.to }};
+      vars:
+        port:
+          from: 80
           to: 80
+    - name: "Forward port to minikube"
+      docker_compose:
+        state: present
+        project_name: "forward-port-{{ port.from }}-to-minikube"
+        definition:
+          socat:
+            image: tillhoff/socat
+            extra_hosts:
+              - "minikube:{{ minikube_ip }}"
+            container_name: "forward-port-{{ port.from }}-to-minikube"
+            ports: 
+              - "{{ port.from }}:{{ port.to }}"
+            command: |
+              socat TCP-LISTEN:{{ port.from }},fork TCP:{{ minikube_ip }}:{{ port.to }};
+      vars:
+        port:
+          from: 443
+          to: 443
