@@ -17,5 +17,5 @@ data:
       reverse_proxy caddy:80
     }
     :9999 {
-	    respond "I'm healthy!"
+      respond "I'm healthy!"
     }
