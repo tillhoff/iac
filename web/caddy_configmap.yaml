@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddy-configuration
+  labels:
+    app: caddy
+data:
+  Caddyfile: |
+    alpha.enforge.de
+    :80 {
+    	respond "You are now on the caddy within kubernetes! Good job!"
+    }
+    #:443 {
+    #  respond "Hi!"
+    #}
+    :443 {
+      reverse_proxy caddy:80
+    }
+    :9999 {
+	    respond "I'm healthy!"
+    }

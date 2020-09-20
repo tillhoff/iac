@@ -3,14 +3,22 @@
 version: '3'
 
 tasks:
-  deploy:deployment:
-    cmds:
-      - kubectl apply -f ./deployment_caddy.yaml
 
-  deploy:service:
+  deploy:
     cmds:
-      - kubectl apply -f ./service_caddy.yaml
-  
-  deploy:reverseproxy:
+      - task: deploy:caddy
+
+  deploy:caddy:
     cmds:
-      - docker-compose up -d
+      - task: deploy:caddy:deployment
+      - task: deploy:caddy:service
+      - task: deploy:caddy:configmap
+  deploy:caddy:deployment:
+    cmds:
+      - kubectl apply -f ./caddy_deployment.yaml
+  deploy:caddy:service:
+    cmds:
+      - kubectl apply -f ./caddy_service.yaml
+  deploy:caddy:configmap:
+    cmds:
+      - kubectl apply -f ./caddy_configmap.yaml

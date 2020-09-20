@@ -32,15 +32,3 @@ spec:
           items:
           - key: Caddyfile
             path: Caddyfile
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: caddy-configuration
-  labels:
-    app: caddy
-data:
-  Caddyfile: |
-    :80 {
-    	respond "You are now on the caddy within kubernetes! Good job!"
-    }
