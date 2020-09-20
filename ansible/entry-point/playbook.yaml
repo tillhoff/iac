@@ -26,6 +26,7 @@
         minikube_ip: "{{ r_minikube_ip.stdout }}"
     - name: "Stop all port-forwarding container"
       shell:  docker container stop $(docker container ls -q --filter name=forward-port-*)
+      ignore_errors: yes
     - name: "Forward port to minikube"
       docker_compose:
         state: present
