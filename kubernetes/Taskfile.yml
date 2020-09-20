@@ -10,21 +10,21 @@ tasks:
 
   deploy:caddy:
     cmds:
-      - task: deploy:caddy:deployment
-      - task: deploy:caddy:service
       - task: deploy:caddy:configmap
+      - task: deploy:caddy:service
+      - task: deploy:caddy:deployment
   deploy:caddy:deployment:
     cmds:
-      - cmd: kubectl create namespace web
-        ignore_error: true
-      - kubectl apply -f ./caddy_deployment.yaml --namespace web
+      # - cmd: kubectl create namespace web
+      #   ignore_error: true
+      - kubectl apply -f ./caddy_deployment.yaml
   deploy:caddy:service:
     cmds:
-      - cmd: kubectl create namespace web
-        ignore_error: true
-      - kubectl apply -f ./caddy_service.yaml --namespace web
+      # - cmd: kubectl create namespace web
+      #   ignore_error: true
+      - kubectl apply -f ./caddy_service.yaml
   deploy:caddy:configmap:
     cmds:
-      - cmd: kubectl create namespace web
-        ignore_error: true
-      - kubectl apply -f ./caddy_configmap.yaml --namespace web
+      # - cmd: kubectl create namespace web
+      #   ignore_error: true
+      - kubectl apply -f ./caddy_configmap.yaml
