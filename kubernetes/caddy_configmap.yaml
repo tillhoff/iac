@@ -14,7 +14,7 @@ data:
     #  respond "Hi!"
     #}
     :9999 {
-      reverse_proxy caddy:80
+      reverse_proxy caddy-service.web.svc.cluster.local:80
     }
     #:9999 {
     #  respond "I'm healthy!"
