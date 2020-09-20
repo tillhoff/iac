@@ -15,10 +15,10 @@ tasks:
       - task: deploy:caddy:configmap
   deploy:caddy:deployment:
     cmds:
-      - kubectl apply -f ./caddy_deployment.yaml
+      - kubectl apply -f ./caddy_deployment.yaml --namespace web
   deploy:caddy:service:
     cmds:
-      - kubectl apply -f ./caddy_service.yaml
+      - kubectl apply -f ./caddy_service.yaml --namespace web
   deploy:caddy:configmap:
     cmds:
-      - kubectl apply -f ./caddy_configmap.yaml
+      - kubectl apply -f ./caddy_configmap.yaml --namespace web
