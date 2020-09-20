@@ -13,9 +13,9 @@ data:
     #:443 {
     #  respond "Hi!"
     #}
-    :443 {
+    :9999 {
       reverse_proxy caddy:80
     }
-    :9999 {
-      respond "I'm healthy!"
-    }
+    #:9999 {
+    #  respond "I'm healthy!"
+    #}

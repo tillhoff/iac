@@ -63,3 +63,21 @@
         port:
           from: 443
           to: 443
+    - name: "Forward port to minikube"
+      docker_compose:
+        state: present
+        project_name: "forward-port-{{ port.from }}-to-minikube"
+        definition:
+          socat:
+            image: tillhoff/socat
+            extra_hosts:
+              - "minikube:{{ minikube_ip }}"
+            container_name: "forward-port-{{ port.from }}-to-minikube"
+            ports: 
+              - "{{ port.from }}:{{ port.to }}"
+            command: |
+              socat TCP-LISTEN:{{ port.from }},fork TCP:{{ minikube_ip }}:{{ port.to }};
+      vars:
+        port:
+          from: 9999
+          to: 9999
