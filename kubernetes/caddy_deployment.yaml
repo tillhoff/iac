@@ -1,9 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: caddy-deployment
-  labels:
-    app: caddy
+  name: caddy
 spec:
   replicas: 2
   selector:
@@ -20,6 +18,7 @@ spec:
         ports:
         - containerPort: 80
         - containerPort: 443
+        - containerPort: 9999
         volumeMounts:
         - name: caddy-configuration
           mountPath: /etc/caddy/Caddyfile
@@ -32,3 +31,4 @@ spec:
           items:
           - key: Caddyfile
             path: Caddyfile
+            mode: 0644
