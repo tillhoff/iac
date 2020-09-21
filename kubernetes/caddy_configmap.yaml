@@ -6,14 +6,14 @@ metadata:
     app: caddy
 data:
   Caddyfile: |
-    #alpha.enforge.de {
-    #	redir alpha-centauri.enforge.de{uri}
-    #}
-    #alpha-centauri.enforge.de {
-    #  respond "You are now securely on the caddy within kubernetes! Good job!"
-    #}
+    alpha.enforge.de {
+    	respond "You are now securely on the caddy within kubernetes! Well done!"
+    }
+    alpha-centauri.enforge.de {
+      respond "You are now securely on the caddy within kubernetes! Good job!"
+    }
     :9999 {
-      path /healthcheck
       respond "I'm healthy!"
+      #redir alpha-centauri.enforge.de{uri}
       #reverse_proxy alpha-centauri.enforge.de
     }
