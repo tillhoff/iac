@@ -6,13 +6,24 @@ tasks:
 
   deploy:
     cmds:
+      - task: deploy:persistentvolume
       - task: deploy:caddy
+      - task: deploy:bitwarden
+
+  deploy:persistentvolume:
+    cmds:
+      - kubectl apply -f minikube_persistentvolume.yaml
 
   deploy:caddy:
     cmds:
       - task: deploy:caddy:configmap
-      - task: deploy:caddy:service
       - task: deploy:caddy:deployment
+      - task: deploy:caddy:service
+  deploy:caddy:configmap:
+    cmds:
+      # - cmd: kubectl create namespace web
+      #   ignore_error: true
+      - kubectl apply -f ./caddy_configmap.yaml
   deploy:caddy:deployment:
     cmds:
       # - cmd: kubectl create namespace web
@@ -23,8 +34,29 @@ tasks:
       # - cmd: kubectl create namespace web
       #   ignore_error: true
       - kubectl apply -f ./caddy_service.yaml
-  deploy:caddy:configmap:
+
+  deploy:bitwarden:
     cmds:
-      # - cmd: kubectl create namespace web
-      #   ignore_error: true
-      - kubectl apply -f ./caddy_configmap.yaml
+      - task: deploy:bitwarden:persistentvolumeclaim
+      - task: deploy:bitwarden:deployment
+      - task: deploy:bitwarden:service
+  deploy:bitwarden:persistentvolumeclaim:
+    cmds:
+      - kubectl apply -f ./bitwarden_persistentvolumeclaim.yml
+  deploy:bitwarden:deployment:
+    cmds:
+      - kubectl apply -f ./bitwarden_deployment.yml
+  deploy:bitwarden:service:
+    cmds:
+      - kubectl apply -f ./bitwarden_service.yml
+  
+  restart:
+    cmds:
+      - task: restart:caddy
+      - task: restart:bitwarden
+  restart:caddy:
+    cmds:
+      - kubectl rollout restart deployment caddy
+  restart:bitwarden:
+    cmds:
+      - kubectl rollout restart deployment bitwarden
