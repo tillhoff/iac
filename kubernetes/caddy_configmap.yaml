@@ -12,8 +12,8 @@ data:
     alpha-centauri.enforge.de {
       respond "You are now securely on the caddy within kubernetes! Good job!"
     }
-    pw.enforge.de:80 {
-      reverse_proxy bitwarden-service.default.svc.cluster.local
+    pw.enforge.de {
+      reverse_proxy http://bitwarden-service.default.svc.cluster.local
     }
     :9999 {
       respond "I'm healthy!"
