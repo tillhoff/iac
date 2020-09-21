@@ -7,9 +7,13 @@ metadata:
 data:
   Caddyfile: |
     #alpha.enforge.de {
-    #	respond "You are now securely on the caddy within kubernetes! Good job!"
+    #	redir alpha-centauri.enforge.de{uri}
+    #}
+    #alpha-centauri.enforge.de {
+    #  respond "You are now securely on the caddy within kubernetes! Good job!"
     #}
     :9999 {
+      path /healthcheck
       respond "I'm healthy!"
-      #reverse_proxy caddy-service.web.svc.cluster.local:80
+      #reverse_proxy alpha-centauri.enforge.de
     }
