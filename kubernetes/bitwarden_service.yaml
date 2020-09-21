@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitwarden-service
+  labels:
+    app: bitwarden
+spec:
+  selector:
+    app: bitwarden
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80 # within cluster
+      targetPort: 80 # container port
