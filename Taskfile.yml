@@ -9,6 +9,7 @@ tasks:
     cmds:
       - task: deploy:entry_point
       - task: deploy:kubernetes
+      - task: deploy:helm
 
   deploy:entry_point:
     desc: Deploy entrypoint for minikube
@@ -20,4 +21,10 @@ tasks:
     desc: Deploy all kubernetes-applications
     dir: kubernetes
     cmds:
-      - task deploy
+      - task: deploy
+
+  deploy:helm:
+    desc: Deploy helm charts
+    dir: helm
+    cmds:
+      - task: deploy
