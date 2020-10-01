@@ -5,58 +5,71 @@ version: '3'
 tasks:
 
   deploy:
+    desc: Deploy everything
     cmds:
       - task: deploy:persistentvolume
       - task: deploy:caddy
       - task: deploy:bitwarden
 
   deploy:persistentvolume:
+    desc: Deploy persistentvolume
     cmds:
       - kubectl apply -f minikube_persistentvolume.yaml
 
   deploy:caddy:
+    desc: Deploy caddy
     cmds:
       - task: deploy:caddy:configmap
       - task: deploy:caddy:deployment
       - task: deploy:caddy:service
   deploy:caddy:configmap:
+    desc: Deploy caddy's configmap
     cmds:
       # - cmd: kubectl create namespace web
       #   ignore_error: true
       - kubectl apply -f ./caddy_configmap.yaml
   deploy:caddy:deployment:
+    desc: Deploy caddy's deployment
     cmds:
       # - cmd: kubectl create namespace web
       #   ignore_error: true
       - kubectl apply -f ./caddy_deployment.yaml
   deploy:caddy:service:
+    desc: Deploy caddy's service
     cmds:
       # - cmd: kubectl create namespace web
       #   ignore_error: true
       - kubectl apply -f ./caddy_service.yaml
 
   deploy:bitwarden:
+    desc: Deploy bitwarden
     cmds:
       - task: deploy:bitwarden:persistentvolumeclaim
       - task: deploy:bitwarden:deployment
       - task: deploy:bitwarden:service
   deploy:bitwarden:persistentvolumeclaim:
+    desc: Deploy bitwardens's persistentvolumeclaim
     cmds:
       - kubectl apply -f ./bitwarden_persistentvolumeclaim.yml
   deploy:bitwarden:deployment:
+    desc: Deploy bitwardens's deployment
     cmds:
       - kubectl apply -f ./bitwarden_deployment.yml
   deploy:bitwarden:service:
+    desc: Deploy bitwardens's service
     cmds:
       - kubectl apply -f ./bitwarden_service.yml
   
   restart:
+    desc: Restart all deployments (to reload config for example)
     cmds:
       - task: restart:caddy
       - task: restart:bitwarden
   restart:caddy:
+    desc: Restart caddy deployment
     cmds:
       - kubectl rollout restart deployment caddy
   restart:bitwarden:
+    desc: Restart bitwarden deployment
     cmds:
       - kubectl rollout restart deployment bitwarden

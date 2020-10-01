@@ -5,16 +5,19 @@ version: '3'
 tasks:
 
   deploy:
+    desc: Deploy all kubernetes-applications (& entrypoint for minikube)
     cmds:
       - task: deploy:entry_point
       - task: deploy:kubernetes
 
   deploy:entry_point:
+    desc: Deploy entrypoint for minikube
     dir: ansible/entry-point
     cmds:
       - ansible-playbook -v playbook.yaml -K
 
   deploy:kubernetes:
+    desc: Deploy all kubernetes-applications
     dir: kubernetes
     cmds:
       - task deploy
