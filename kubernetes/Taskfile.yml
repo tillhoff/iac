@@ -20,9 +20,14 @@ tasks:
   deploy:caddy:
     desc: Deploy caddy
     cmds:
+      - task: deploy:caddy:persistentvolumeclaim
       - task: deploy:caddy:configmap
       - task: deploy:caddy:deployment
       - task: deploy:caddy:service
+  deploy:caddy:persistentvolumeclaim:
+    desc: Deploy caddy's persistentvolumeclaim
+    cmds:
+      - kubectl apply -f ./caddy_persistentvolumeclaim.yaml
   deploy:caddy:configmap:
     desc: Deploy caddy's configmap
     cmds:
