@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gotify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gotify
+  template:
+    metadata:
+      labels:
+        app: gotify
+    spec:
+      containers:
+      - name: gotify
+        image: gotify/server:2.0.19
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: gotify-data
+          mountPath: /app/data
+          readOnly: false
+      volumes:
+      - name: gotify-data
+        persistentVolumeClaim:
+          claimName: gotify-pvc
