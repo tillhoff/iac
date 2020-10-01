@@ -1,7 +1,0 @@
-dashboard:
-  enabled: true
-  domain: enforge.de
-kubernetes:
-  namespaces:
-    - default
-    - kube-system

@@ -15,9 +15,6 @@ data:
     pw.enforge.de {
       reverse_proxy http://bitwarden-service.default.svc.cluster.local
     }
-    notify.enforge.de {
-      reverse_proxy http://gotify-service.default.svc.cluster.local
-    }
     :9999 {
       respond "I'm healthy!"
       #redir alpha-centauri.enforge.de{uri}
