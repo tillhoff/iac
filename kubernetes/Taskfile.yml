@@ -10,6 +10,7 @@ tasks:
       - task: deploy:persistentvolume
       - task: deploy:caddy
       - task: deploy:bitwarden
+      - task: deploy:gotify
 
   deploy:persistentvolume:
     desc: Deploy persistentvolume
@@ -59,12 +60,32 @@ tasks:
     desc: Deploy bitwardens's service
     cmds:
       - kubectl apply -f ./bitwarden_service.yml
+
+  deploy:gotify:
+    desc: Deploy gotify
+    cmds:
+      - task: deploy:gotify:persistentvolumeclaim
+      - task: deploy:gotify:deployment
+      - task: deploy:gotify:service
+  deploy:gotify:persistentvolumeclaim:
+    desc: Deploy gotify's persistentvolumeclaim
+    cmds:
+      - kubectl apply -f ./gotify_persistentvolumeclaim.yml
+  deploy:gotify:deployment:
+    desc: Deploy gotify's deployment
+    cmds:
+      - kubectl apply -f ./gotify_deployment.yml
+  deploy:gotify:service:
+    desc: Deploy gotify's service
+    cmds:
+      - kubectl apply -f ./gotify_service.yml
   
   restart:
     desc: Restart all deployments (to reload config for example)
     cmds:
       - task: restart:caddy
       - task: restart:bitwarden
+      - task: restart:gotify
   restart:caddy:
     desc: Restart caddy deployment
     cmds:
@@ -73,3 +94,7 @@ tasks:
     desc: Restart bitwarden deployment
     cmds:
       - kubectl rollout restart deployment bitwarden
+  restart:gotify:
+    desc: Restart gotify deployment
+    cmds:
+      - kubectl rollout restart deployment gotify
