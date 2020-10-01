@@ -51,15 +51,15 @@ tasks:
   deploy:bitwarden:persistentvolumeclaim:
     desc: Deploy bitwardens's persistentvolumeclaim
     cmds:
-      - kubectl apply -f ./bitwarden_persistentvolumeclaim.yml
+      - kubectl apply -f ./bitwarden_persistentvolumeclaim.yaml
   deploy:bitwarden:deployment:
     desc: Deploy bitwardens's deployment
     cmds:
-      - kubectl apply -f ./bitwarden_deployment.yml
+      - kubectl apply -f ./bitwarden_deployment.yaml
   deploy:bitwarden:service:
     desc: Deploy bitwardens's service
     cmds:
-      - kubectl apply -f ./bitwarden_service.yml
+      - kubectl apply -f ./bitwarden_service.yaml
 
   deploy:gotify:
     desc: Deploy gotify
@@ -70,15 +70,15 @@ tasks:
   deploy:gotify:persistentvolumeclaim:
     desc: Deploy gotify's persistentvolumeclaim
     cmds:
-      - kubectl apply -f ./gotify_persistentvolumeclaim.yml
+      - kubectl apply -f ./gotify_persistentvolumeclaim.yaml
   deploy:gotify:deployment:
     desc: Deploy gotify's deployment
     cmds:
-      - kubectl apply -f ./gotify_deployment.yml
+      - kubectl apply -f ./gotify_deployment.yaml
   deploy:gotify:service:
     desc: Deploy gotify's service
     cmds:
-      - kubectl apply -f ./gotify_service.yml
+      - kubectl apply -f ./gotify_service.yaml
   
   restart:
     desc: Restart all deployments (to reload config for example)
