@@ -8,11 +8,11 @@ tasks:
   deploy:
     desc: Deploy all kubernetes-applications via helm (& entrypoint for minikube)
     cmds:
-      - task: deploy:entry_point
-      - task: deploy:helm
+      - task: entry_point:deploy
+      - task: helm:deploy
 
 
-  deploy:entry_point:
+  entry_point:deploy:
     desc: Deploy entrypoint for minikube
     dir: ansible/entry-point
     cmds:
