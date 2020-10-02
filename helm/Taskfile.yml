@@ -14,18 +14,18 @@ tasks:
 
   deploy:bitwarden:
     desc: Deploy bitwarden with helm
-    dir: bitwarden
+    dir: bitwarden/
     cmds:
       - task: deploy
 
   deploy:caddy:
     desc: Deploy caddy with helm
-    dir: caddy
+    dir: caddy/
     cmds:
       - task: deploy
 
   deploy:gotify:
     desc: Deploy gotify with helm
-    dir: gotify
+    dir: gotify/
     cmds:
       - task: deploy
