@@ -5,11 +5,14 @@ metadata:
   labels:
     {{- include "app.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: NodePort
   ports:
-    - name: http
-      port: {{ .Values.service.port }} # within cluster
-      targetPort: 80 # container port
-      protocol: TCP
+    {{- range .Values.ports }}
+    - name: {{ .name }}
+      port: {{ .port }} # within cluster
+      targetPort: {{ .port }} # container port
+      protocol: {{ .protocol }}
+      nodePort: {{ .port }} # external (only for type nodeport)
+    {{- end}}
   selector:
     {{- include "app.selectorLabels" . | nindent 4 }}

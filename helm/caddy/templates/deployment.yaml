@@ -19,9 +19,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 80
-            - containerPort: 443
-            - containerPort: 9999
+          {{- range .Values.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .port }}
+              protocol: {{ .protocol}}
+          {{- end}}
           # livenessProbe:
           #   httpGet:
           #     path: /
