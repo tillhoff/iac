@@ -2,8 +2,9 @@
 
 version: '3'
 
-tasks:
+silent: true
 
+tasks:
   deploy:
     desc: Deploy this chart
     cmds:
