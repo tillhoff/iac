@@ -1,0 +1,30 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+
+  deploy:
+    desc: Deploy all kubernetes-applications with helm
+    cmds:
+      - task: deploy:bitwarden
+      - task: deploy:caddy
+      - task: deploy:gotify
+
+  deploy:bitwarden:
+    desc: Deploy bitwarden with helm
+    dir: bitwarden
+    cmds:
+      - task: deploy
+
+  deploy:caddy:
+    desc: Deploy caddy with helm
+    dir: caddy
+    cmds:
+      - task: deploy
+
+  deploy:gotify:
+    desc: Deploy gotify with helm
+    dir: gotify
+    cmds:
+      - task: deploy
