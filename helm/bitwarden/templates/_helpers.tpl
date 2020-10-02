@@ -23,6 +23,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "bitwarden.selectorLabels" -}}
-app.kubernetes.io/name: {{ .Chart.name }}
+app.kubernetes.io/name: {{ .Chart.Name }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
