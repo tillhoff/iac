@@ -6,6 +6,9 @@ metadata:
     app: caddy
 data:
   Caddyfile: |
+    tls info@enforge.de {
+      ca https://acme-staging.api.letsencrypt.org/directory
+    }
     alpha.enforge.de {
     	respond "You are now securely on the caddy within kubernetes! Well done!"
     }
