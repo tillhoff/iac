@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
-    {{- include "bitwarden.labels" . | nindent 4 }}
+    {{- include "app.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "bitwarden.selectorLabels" . | nindent 6 }}
+      {{- include "app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "bitwarden.selectorLabels" . | nindent 8 }}
+        {{- include "app.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ .Release.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
@@ -31,12 +31,12 @@ spec:
           #     path: /
           #     port: http
           volumeMounts:
-            - name: {{ .Release.Name }}-volume
+            - name: {{ .Release.Name }}-data
               mountPath: /data
               readOnly: false
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-      - name: {{ .Release.Name }}-volume
+      - name: {{ .Release.Name }}-data
         persistentVolumeClaim:
           claimName: {{ .Release.Name }}-pvc
