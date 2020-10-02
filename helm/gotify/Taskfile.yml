@@ -1,0 +1,10 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+
+  deploy:
+    desc: Deploy this chart
+    cmds:
+      - helm upgrade --install ${PWD##*/} .
