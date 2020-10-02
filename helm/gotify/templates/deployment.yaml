@@ -24,6 +24,7 @@ spec:
               containerPort: {{ .port }}
               protocol: {{ .protocol}}
           {{- end}}
+          volumeMounts:
           - name: {{ .Release.Name }}-data
             mountPath: /app/data
             readOnly: false
