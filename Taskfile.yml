@@ -22,9 +22,9 @@ tasks:
     desc: Deploy all kubernetes-applications with helm
     dir: helm
     cmds:
-      - task: deploy:applications
+      - task deploy
   helm:uninstall:
     desc: Uninstall all kubernetes-applications previously installed with helm
     dir: helm
     cmds:
-      - task: uninstall:applications
+      - task: uninstall
