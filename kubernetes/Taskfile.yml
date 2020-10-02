@@ -12,6 +12,7 @@ tasks:
       - task: deploy:bitwarden
       - task: deploy:gotify
 
+
   deploy:persistentvolume:
     desc: Deploy persistentvolume
     cmds:
