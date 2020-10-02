@@ -27,4 +27,4 @@ tasks:
     desc: Uninstall all kubernetes-applications previously installed with helm
     dir: helm
     cmds:
-      - task: uninstall
+      - task uninstall
