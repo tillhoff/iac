@@ -16,7 +16,7 @@ data:
       reverse_proxy http://bitwarden-service.default.svc.cluster.local
     }
     push.enforge.de {
-      reverse_proxy http://bitwarden-service.default.svc.cluster.local
+      reverse_proxy http://gotify-service.default.svc.cluster.local
     }
     :9999 {
       respond "I'm healthy!"
