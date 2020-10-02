@@ -5,5 +5,4 @@ metadata:
   labels:
     {{- include "app.labels" . | nindent 4 }}
 data:
-  Caddyfile: |
-  {{ toYaml .Values.caddyfile | indent 2 }}
+  Caddyfile: {{ toYaml .Values.caddyfile | indent 2 }}
