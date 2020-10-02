@@ -42,13 +42,13 @@ caddyfile: |
     respond "You are now securely on the caddy within kubernetes! Good job!"
   }
   pw.enforge.de {
-    reverse_proxy http://bitwarden-service.default.svc.cluster.local
+    reverse_proxy http://bitwarden.default.svc.cluster.local
   }
   push.enforge.de {
-    reverse_proxy http://gotify-service.default.svc.cluster.local
+    reverse_proxy http://gotify.default.svc.cluster.local
   }
   :9999 {
     respond "I'm healthy!"
     #redir alpha-centauri.enforge.de{uri}
-    #reverse_proxy caddy-service.default.svc.cluster.local
+    #reverse_proxy caddy.default.svc.cluster.local
   }
