@@ -9,6 +9,7 @@ tasks:
     desc: Deploy all kubernetes-applications via helm (& entrypoint for minikube)
     cmds:
       - task: entry_point:deploy
+      - task: kubernetes:deploy
       - task: helm:deploy
 
 
@@ -17,6 +18,12 @@ tasks:
     dir: ansible/entry-point
     cmds:
       - ansible-playbook -v playbook.yaml -K
+
+  kubernetes:deploy:
+    desc: Configure kubernetes on a global level
+    dir: kubernetes
+    cmds:
+      - task deploy
 
   helm:deploy:
     desc: Deploy all kubernetes-applications with helm
