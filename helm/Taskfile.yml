@@ -30,3 +30,10 @@ tasks:
     dir: gotify
     cmds:
       - task deploy
+
+  uninstall:applications:
+    desc: Uninstall all applications
+    cmds:
+      - helm uninstall bitwarden
+      - helm uninstall caddy
+      - helm uninstall gotify

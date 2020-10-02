@@ -18,8 +18,13 @@ tasks:
     cmds:
       - ansible-playbook -v playbook.yaml -K
 
-  deploy:helm:
+  helm:deploy:
     desc: Deploy all kubernetes-applications with helm
     dir: helm
     cmds:
-      - task: deploy:kubernetes
+      - task: deploy:applications
+  helm:uninstall:
+    desc: Uninstall all kubernetes-applications previously installed with helm
+    dir: helm
+    cmds:
+      - task: uninstall:applications
