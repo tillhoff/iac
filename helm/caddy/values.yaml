@@ -31,9 +31,9 @@ volume:
   capacity: 1Gi
 
 caddyfile: |
-  # {
-  #   acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-  # }
+  {
+    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+  }
 
   alpha.enforge.de {
     respond "You are now securely on the caddy within kubernetes! Well done!"
