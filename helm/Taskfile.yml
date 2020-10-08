@@ -35,5 +35,5 @@ tasks:
     desc: Uninstall all applications
     cmds:
       - helm uninstall bitwarden
-      - helm uninstall caddy
+      #- helm uninstall caddy # removed, as it will always renew certs, which leads to reaching acme rate limits
       - helm uninstall gotify
