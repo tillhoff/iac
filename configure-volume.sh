@@ -10,7 +10,7 @@ mntvolumename="volume"
 
 mkdir /mnt/volume
 
-mount -o discard,defaults /dev/disk/by-id/scsi-0$devvolumename /mnt/$mntvolumename
+mount -o discard,defaults /dev/disk/by-id/scsi-0$devvolumename /mnt/$mntvolumename || true
 
 cat /etc/fstab | grep $devvolumename
 if [[ $? = 0 ]]; then
