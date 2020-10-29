@@ -8,8 +8,8 @@ tasks:
 
   docker-compose:postgres:
     cmds:
-      - docker-compose -f docker-compose-files/postgres-compose.yml up
+      - docker-compose -d -f docker-compose-files/postgres-compose.yml up
 
-  create-secrets:
+  create-secret-files:
     cmds:
-      - well...
+      - echo 'POSTGRES_USER=\nPOSTGRES_PASSWORD=' > secrets/postgres.ignored
