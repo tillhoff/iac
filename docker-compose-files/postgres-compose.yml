@@ -7,12 +7,4 @@ services:
     env_file:
       - ../secrets/postgres.ignored
     volumes:
-    - postgres-data:/var/lib/postgresql/data
-
-volumes:
-  postgres-data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /mnt/volume/postgres
+    - /mnt/volume/postgres:/var/lib/postgresql/data
