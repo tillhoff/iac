@@ -12,7 +12,7 @@ tasks:
   
   postgres:down:
     cmds:
-      - docker-compose -f docker-compose-files/postgres-compose.yml down
+      - docker-compose -p postgres -f docker-compose-files/postgres-compose.yml down
 
   mariadb:up:
     cmds:
@@ -20,7 +20,7 @@ tasks:
 
   mariadb:down:
     cmds:
-      - docker-compose -f docker-compose-files/mariadb-compose.yml down
+      - docker-compose -p mariadb -f docker-compose-files/mariadb-compose.yml down
 
   create-secret-files:
     cmds:
