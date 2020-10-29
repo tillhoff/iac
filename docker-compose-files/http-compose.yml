@@ -16,5 +16,8 @@ services:
     restart: always
     env_file:
       - ../secrets/bitwarden.ignored
+    environment:
+      - DOMAIN=https://pw.enforge.de
+      - SIGNUPS_ALLOWED=false
     volumes:
     - /mnt/volume/bitwarden:/data
