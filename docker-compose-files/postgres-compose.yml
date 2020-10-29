@@ -5,7 +5,7 @@ services:
     image: postgres
     restart: always
     env_file:
-      - secrets/postgres.ignored
+      - ../secrets/postgres.ignored
     volumes:
     - postgres-data:/var/lib/postgresql/data
 
