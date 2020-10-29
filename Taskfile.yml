@@ -8,4 +8,5 @@ tasks:
 
   docker-compose:postgres:
     cmds:
-      - docker-compose -f postgres/docker-compose.yml
+      - docker-compose -f docker-compose-files/postgres-compose.yml.crypt
+
