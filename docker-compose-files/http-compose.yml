@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  caddy:
+    image: caddy
+    restart: always
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - ${PWD}/Caddyfile:/etc/caddy/Caddyfile
+    - /mnt/volume/caddy:/data
+
+  bitwarden:
+    image: bitwarden_rs
+    restart: always
+    volumes:
+    - /mnt/volume/bitwarden:/data

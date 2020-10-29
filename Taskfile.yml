@@ -22,6 +22,14 @@ tasks:
     cmds:
       - docker-compose -p mariadb -f docker-compose-files/mariadb-compose.yml down
 
+  http:up:
+    cmds:
+      - docker-compose -p http -f docker-compose-files/http-compose.yml up -d
+
+  http:down:
+    cmds:
+      - docker-compose -p http -f docker-compose-files/http-compose.yml down
+
   create-secret-files:
     cmds:
       - |

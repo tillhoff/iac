@@ -1,0 +1,20 @@
+{
+  acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+a.enforge.de {
+  respond "Hi a"
+}
+alpha.enforge.de {
+  respond "Hi alpha"
+}
+alpha-centauri.enforge.de {
+  respond "Hi alpha-centauri"
+}
+pw.enforge.de {
+  reverse_proxy http://bitwarden
+}
+:9999 {
+  respond "I'm healthy!"
+  #redir alpha-centauri.enforge.de{uri}
+  #reverse_proxy caddy.default.svc.cluster.local
+}
