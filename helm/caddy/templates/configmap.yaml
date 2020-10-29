@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-configuration
-  labels:
-    {{- include "app.labels" . | nindent 4 }}
-data:
-  Caddyfile: {{ toYaml .Values.caddyfile | indent 2 }}
