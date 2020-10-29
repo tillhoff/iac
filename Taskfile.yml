@@ -35,10 +35,16 @@ tasks:
       - |
         file=secrets/postgres.ignored
         if [ ! -f "$file" ]; then
-          echo 'POSTGRES_USER=\nPOSTGRES_PASSWORD=' > "$file"
+          echo "POSTGRES_USER=root" > "$file"
+          echo "POSTGRES_PASSWORD=$(openssl rand -base64 32)" >> "$file"
         fi
       - |
         file=secrets/mariadb.ignored
         if [ ! -f "$file" ]; then
-          echo 'MYSQL_ROOT_PASSWORD=' > "$file"
+          echo "MYSQL_ROOT_PASSWORD=$(openssl rand -base64 32)" > "$file"
+        fi
+      - |
+        file=secrets/bitwarden.ignored
+        if [ ! -f "$file" ]; then
+          echo "ADMIN_TOKEN=$(openssl rand -base64 32)" > "$file"
         fi

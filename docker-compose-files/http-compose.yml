@@ -14,5 +14,7 @@ services:
   bitwarden:
     image: bitwardenrs/server
     restart: always
+    env_file:
+      - ../secrets/bitwarden.ignored
     volumes:
     - /mnt/volume/bitwarden:/data
