@@ -18,11 +18,11 @@ tasks:
     cmds:
       - |
         file=secrets/postgres.ignored
-        if [ -e $file ]; then
-          echo 'POSTGRES_USER=\nPOSTGRES_PASSWORD=' > $file
+        if [ ! -f "$file" ]; then
+          echo 'POSTGRES_USER=\nPOSTGRES_PASSWORD=' > "$file"
         fi
       - |
         file=secrets/mariadb.ignored
-        if [ -e $file ]; then
-          echo 'MYSQL_ROOT_PASSWORD=' > $file
+        if [ ! -f "$file" ]; then
+          echo 'MYSQL_ROOT_PASSWORD=' > "$file"
         fi
