@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  db:
+    image: mariadb
+    restart: always
+    env_file:
+      - ../secrets/mariadb.ignored
+    ports:
+    - 3306:3306
+    volumes:
+    - /mnt/volume/mariadb:/var/lib/mysql

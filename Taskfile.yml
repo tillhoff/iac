@@ -10,6 +10,19 @@ tasks:
     cmds:
       - docker-compose -p postgres -f docker-compose-files/postgres-compose.yml up -d
 
+  docker-compose:mariadb:
+    cmds:
+      - docker-compose -p mariadb -f docker-compose-files/mariadb-compose.yml up -d
+
   create-secret-files:
     cmds:
-      - echo 'POSTGRES_USER=\nPOSTGRES_PASSWORD=' > secrets/postgres.ignored
+      - |
+        file=secrets/postgres.ignored
+        if[! -f $file ]; then
+          echo 'POSTGRES_USER=\nPOSTGRES_PASSWORD=' > $file
+        fi
+      - |
+        file=secrets/mariadb.ignored
+        if[! -f $file ]; then
+          echo 'MYSQL_ROOT_PASSWORD=' > $file
+        fi
