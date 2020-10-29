@@ -13,6 +13,6 @@ mkdir /mnt/volume
 mount -o discard,defaults /dev/disk/by-id/scsi-0$devvolumename /mnt/$mntvolumename
 
 cat /etc/fstab | grep $devvolumename
-if [[] $? = 0 ]]; then
+if [[ $? = 0 ]]; then
   echo "/dev/disk/by-id/scsi-0$devvolumename /mnt/$mntvolumename ext4 discard,nofail,defaults 0 0" >> /etc/fstab
 fi
