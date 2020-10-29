@@ -8,7 +8,7 @@ fi
 devvolumename="HC_Volume_6753628"
 mntvolumename="volume"
 
-mkdir /mnt/volume
+mkdir -p /mnt/volume
 
 mount -o discard,defaults /dev/disk/by-id/scsi-0$devvolumename /mnt/$mntvolumename || true
 
