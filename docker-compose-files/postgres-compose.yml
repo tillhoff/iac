@@ -5,12 +5,12 @@ services:
     image: postgres
     restart: always
     env_file:
-      - ../secrets/postgres.ignored
+      - secrets/postgres.ignored
     volumes:
-    - db-data:/var/lib/postgresql/data
+    - postgres-data:/var/lib/postgresql/data
 
 volumes:
-  db-data:
+  postgres-data:
     driver: local
     driver_opts:
       type: none
