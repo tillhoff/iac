@@ -12,7 +12,7 @@ services:
     - /mnt/volume/caddy:/data
 
   bitwarden:
-    image: bitwarden_rs
+    image: bitwardenrs/server
     restart: always
     volumes:
     - /mnt/volume/bitwarden:/data
