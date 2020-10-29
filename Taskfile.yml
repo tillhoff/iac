@@ -6,13 +6,21 @@ silent: true
 
 tasks:
 
-  docker-compose:postgres:
+  postgres:up:
     cmds:
       - docker-compose -p postgres -f docker-compose-files/postgres-compose.yml up -d
+  
+  postgres:down:
+    cmds:
+      - docker-compose -f docker-compose-files/postgres-compose.yml down
 
-  docker-compose:mariadb:
+  mariadb:up:
     cmds:
       - docker-compose -p mariadb -f docker-compose-files/mariadb-compose.yml up -d
+
+  mariadb:down:
+    cmds:
+      - docker-compose -f docker-compose-files/mariadb-compose.yml down
 
   create-secret-files:
     cmds:
