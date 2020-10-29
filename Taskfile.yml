@@ -8,7 +8,7 @@ tasks:
 
   docker-compose:postgres:
     cmds:
-      - docker-compose -d -f docker-compose-files/postgres-compose.yml up
+      - docker-compose -p postgres -f docker-compose-files/postgres-compose.yml up -d
 
   create-secret-files:
     cmds:
