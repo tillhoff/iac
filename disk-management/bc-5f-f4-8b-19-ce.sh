@@ -27,3 +27,5 @@ if sudo zpool status -v | grep $NAME >/dev/null; then
 fi
 
 sudo zpool status -v
+
+sudo hdparm -S 60 /dev/disk/by-id/ata-WDC* # set disk timeout to 5min (lookup calculation when adjusting!)
