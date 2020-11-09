@@ -28,4 +28,9 @@ fi
 
 sudo zpool status -v
 
-sudo hdparm -S 60 /dev/disk/by-id/ata-WDC* # set disk timeout to 5min (lookup calculation when adjusting!)
+ALLDISKS=$(ls "/dev/sd*")
+for DISK in ${ALLDISKS[@]}; do
+  if [[ "$(cat /sys/block/$DISK/queue/rotational)" == "1" ]]; then
+    sudo hdparm -S 120 /dev/$DISK # set disk timeout to 10min (lookup calculation when adjusting!)
+  fi
+done
