@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$HOSTNAME" != "bc-5f-f4-8b-19-ce" ]; then
+if [ "$HOSTNAME" != "BLACKHOLE" ]; then
   echo "Wrong hostname."
   exit
 fi
