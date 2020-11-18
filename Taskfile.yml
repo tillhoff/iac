@@ -55,3 +55,21 @@ tasks:
         if [ ! -f "$file" ]; then
           echo "ADMIN_TOKEN=$(openssl rand -base64 32)" > "$file"
         fi
+
+  configure-disks:
+    desc: Configure disks, mounts, filesystems
+    dir: disk-management
+    cmds:
+      - |
+        if [ -f "$(hostname).sh" ]; then
+          $(hostname).sh
+        fi
+
+  configure-backup:
+    desc: Configure backup
+    dir: backup
+    cmds:
+      - |
+        if [ -f "$(hostname).sh" ]; then
+          $(hostname).sh
+        fi
