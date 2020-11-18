@@ -62,7 +62,7 @@ tasks:
     cmds:
       - |
         if [ -f "$(hostname).sh" ]; then
-          $(hostname).sh
+          ./$(hostname).sh
         fi
 
   configure-backup:
@@ -71,5 +71,5 @@ tasks:
     cmds:
       - |
         if [ -f "$(hostname).sh" ]; then
-          $(hostname).sh
+          ./$(hostname).sh
         fi
