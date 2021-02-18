@@ -43,10 +43,10 @@ printf "Finished working on pool $NAME.\n"
 sudo zpool status -v
 
 printf "Started setting spin-down timeout (on rotating disks only).\n"
-ALLDISKS=$(ls "/dev/sd*")
+ALLDISKS=$(ls /dev/sd?)
 for DISK in ${ALLDISKS[@]}; do
-  if [[ "$(cat /sys/block/$DISK/queue/rotational)" == "1" ]]; then
-    sudo hdparm -S 242 /dev/$DISK # set disk timeout to 1h (lookup calculation when adjusting!)
+  if [[ "$(cat /sys/block/${DISK#/dev/}/queue/rotational)" == "1" ]]; then
+    sudo hdparm -S 242 $DISK # set disk timeout to 1h (lookup calculation when adjusting!)
   fi
 done
 printf "Finished setting spin-down timeout.\n"

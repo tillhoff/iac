@@ -12,21 +12,26 @@ fi
 # windows machines
 #   windows machines need to backup via push. A) because they are probably not online at the backup timeslot and B) because its harder to ssh into them them from them.
 foreach machine ( blackstone baby )
-  username=blackstone
-  sudo useradd --create-home $username
-  sudo usermod -a -G sshusers $username
-  sudo runuser -l $username -c "ssh-keygen -t ed25519 -C \"$USER@$(hostname)\""
-  mkdir -p /mnt/data-hdds/backup/$username/
-  chown -R $username /mnt/data-hdds/backup/$username
+  sudo useradd --create-home $machine
+  sudo usermod -a -G sshusers $machine
+  echo $machine:$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16) | sudo chpasswd
+  sudo runuser -l $machine -c "ssh-keygen -t ed25519 -C \"$machine@$(hostname)\""
+  sudo runuser -l $machine -c "cp ~/.ssh/id_ed25519.pub ~/.ssh/authorized_keys"
+  mkdir -p /mnt/data-hdds/backup/$machine/
+  sudo chown -R $machine /mnt/data-hdds/backup/$machine
   printf "%s\n" \
-    "To retrieve your machines key, please run" \
-    "rsync $username@$(hostname):~/.ssh/id_ed25519 ~/.ssh/id_ed25519" \
-    "on your (wsl2) console."
+    "To retrieve your machines key, please copy the following into ~/.ssh/id_ed25519 within your (wsl2) console:" \
+  sudo cat /home/$machine/.ssh/id_ed25519
+  printf "%s\n" \
+    "Please fix permissions for this file with"
+    "chmod 600 ~/.ssh/id_ed25519"
   printf "%s\n" \
     "To schedule the backup on your machine, run the following commands in an elevated powershell:" \
     "Import-Module TaskScheduler \$task = New-Task"
     "\$task.Settings.Hidden = \$true" \
-    "Add-TaskAction -Task \$task -Path C:\Windows\System32\wsl.exe –Arguments \"rsync -zaP -e 'ssh -i $HOME/.ssh/id_ed25519' /mnt/d \$(hostname)@$(hostname):/mnt/data-hdds/backup/\$(hostname)/\"" \
+    "Add-TaskAction -Task \$task -Path C:\Windows\System32\wsl.exe –Arguments \"rsync -za --info=progress2 -e 'ssh -i ~/.ssh/id_ed25519' /mnt/d \${hostname,,}@$(hostname):/mnt/data-hdds/backup/\${hostname,,}/\"" \
+    # manual command:
+    # wsl rsync -za --info=progress2 -e 'ssh -i ~/.ssh/id_ed25519' /mnt/d ${hostname,,}@BLACKHOLE:/mnt/data-hdds/backup/${hostname,,}/
     "Add-TaskTrigger -Task \$task -Weekly -At '04:00'" \
     "Register-ScheduledJob –Name \"Backup D: to $(hostname)\" -Task \$task"
 end
